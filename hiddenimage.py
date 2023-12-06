@@ -6,6 +6,8 @@ from numpy import fft as fft
 import matplotlib.pyplot as plt
 import matplotlib.image as img
 carrier_fft=[]
+carrier_img_name="camaraman.png"
+info_img_name="hatwoman.png"
 def embed_info(data, x, y, width, layer, flow, count):# 嵌入信息,data为载体图像,x,y为当前坐标,width为当前层的宽度,layer为当前层数,flow为信息流,count为当前信息流的位置
     N = width - 2 * layer - 1
     if N <= 0 or count >= flow.size:
@@ -101,7 +103,7 @@ def extract_process():
     carrier_fft = fft.fftshift(fft.fft2(carrier_data))
 
     # 假设提取的数据大小和原信息图像的大小一致
-    info_img = Image.open("hatwoman.png").convert("L")
+    info_img = Image.open(info_img_name).convert("L")
     info_data = np.array(info_img)
     info_size = info_data.size
 
@@ -132,8 +134,8 @@ def extract_process():
 def main():
     global carrier_fft
     # 载入图像并转换为灰度
-    carrier_img = Image.open("camaraman.png").convert("L")
-    info_img = Image.open("hatwoman.png").convert("L")
+    carrier_img = Image.open(carrier_img_name).convert("L")
+    info_img = Image.open(info_img_name).convert("L")
 
     # 将图像转换为二维数组并进行FFT变换
     carrier_data = np.array(carrier_img)
